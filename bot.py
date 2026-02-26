@@ -16,15 +16,16 @@ def send_welcome(message):
     """Send a welcome message with instructions and an image."""
     chat_id = message.chat.id
     welcome_text = (
-        "👋 <b>Welcome to Custom Emoji ID Bot!</b>\n\n"
-        "Send me any message containing a <b>Telegram Premium custom emoji</b> "
-        "and I'll reply with its unique ID.\n\n"
-        "✨ <b>How to use:</b>\n"
-        "• Just type a message with a custom emoji (from a Premium pack)\n"
-        "• I'll instantly reply with the emoji's ID\n"
-        "• Works in groups and private chats\n\n"
-        "🔍 <b>Note:</b> Only custom (Premium) emojis are detected. "
-        "Standard Unicode emojis are ignored.\n\n"
+        '<tg-emoji emoji-id="6336707083940927246">👋</tg-emoji> <b>Welcome to Custom Emoji ID Bot!</b>\n\n'
+        'Send me any message containing a <b>Telegram Premium custom emoji</b> '
+        'and I\'ll reply with its unique ID.\n\n'
+        '<tg-emoji emoji-id="5325547803936572038">✨</tg-emoji> <b>How to use:</b>\n'
+        '• Just type a message with a custom emoji (from a Premium pack)\n'
+        '• I\'ll instantly reply with the emoji\'s ID\n'
+        '• Works in groups and private chats\n\n'
+        '<tg-emoji emoji-id="5319230516929502602">🔍</tg-emoji> <b>Note:</b> '
+        'Only custom (Premium) emojis are detected. Standard Unicode emojis are ignored.\n\n'
+        'Use /help to see this message again.'
     )
 
     try:
