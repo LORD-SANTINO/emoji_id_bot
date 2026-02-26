@@ -1,21 +1,70 @@
 import telebot
+import logging
 
-# Replace 'YOUR_BOT_TOKEN' with the token from @BotFather
-bot = telebot.TeleBot('8307990040:AAGt9Xfh0gli2Tbb1CA42c_E-mAlLWjkOM4')
+# Replace with your actual bot token from @BotFather
+BOT_TOKEN = '8307990040:AAGt9Xfh0gli2Tbb1CA42c_E-mAlLWjkOM4'
+bot = telebot.TeleBot(BOT_TOKEN)
 
+# Enable logging to see errors (optional)
+logging.basicConfig(level=logging.INFO)
+
+# A publicly accessible image URL for the start message
+WELCOME_IMAGE_URL = "https://tmpfiles.org/dl/26326290/download7.jpg"  # Random placeholder
+
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+    """Send a welcome message with instructions and an image."""
+    chat_id = message.chat.id
+    welcome_text = (
+        "👋 <b>Welcome to Custom Emoji ID Bot!</b>\n\n"
+        "Send me any message containing a <b>Telegram Premium custom emoji</b> "
+        "and I'll reply with its unique ID.\n\n"
+        "✨ <b>How to use:</b>\n"
+        "• Just type a message with a custom emoji (from a Premium pack)\n"
+        "• I'll instantly reply with the emoji's ID\n"
+        "• Works in groups and private chats\n\n"
+        "🔍 <b>Note:</b> Only custom (Premium) emojis are detected. "
+        "Standard Unicode emojis are ignored.\n\n"
+    )
+
+    try:
+        # Send photo with caption (the image URL is fetched by Telegram)
+        bot.send_photo(
+            chat_id,
+            photo=WELCOME_IMAGE_URL,
+            caption=welcome_text,
+            parse_mode="HTML"
+        )
+    except Exception as e:
+        # Fallback if image fails to send
+        logging.error(f"Failed to send photo: {e}")
+        bot.send_message(chat_id, welcome_text, parse_mode="HTML")
 
 @bot.message_handler(func=lambda message: True)
 def get_emoji_id(message):
+    """Extract custom emoji ID from any incoming message."""
     if message.entities:
         for entity in message.entities:
             if entity.type == 'custom_emoji':
                 emoji_id = entity.custom_emoji_id
-                # Using HTML mode here so we don't have to escape "!" or "."
-                response = f"<b>✅ Custom Emoji ID found!</b>\n\nID: <code>{emoji_id}</code>"
+                # Improved UI: clear formatting with emoji indicators
+                response = (
+                    f"✅ <b>Custom Emoji Detected!</b>\n\n"
+                    f"🆔 <b>ID:</b> <code>{emoji_id}</code>\n\n"
+                    f"💡 You can use this ID in bots that support custom emoji."
+                )
                 bot.reply_to(message, response, parse_mode="HTML")
                 return
 
-    bot.reply_to(message, "❌ No custom emoji detected. Please send a premium emoji.")
+    # No custom emoji found
+    bot.reply_to(
+        message,
+        "❌ <b>No custom emoji found.</b>\n\n"
+        "Please send a message that includes a Telegram Premium custom emoji.\n"
+        "Use /help for instructions.",
+        parse_mode="HTML"
+    )
 
-print("Bot is running...")
-bot.infinity_polling()
+if __name__ == "__main__":
+    print("Bot is running...")
+    bot.infinity_polling()
