@@ -48,23 +48,26 @@ def get_emoji_id(message):
         for entity in message.entities:
             if entity.type == 'custom_emoji':
                 emoji_id = entity.custom_emoji_id
-                # Improved UI: clear formatting with emoji indicators
+                # Success response with custom emojis
                 response = (
-                    f"✅ <b>Custom Emoji Detected!</b>\n\n"
-                    f"🆔 <b>ID:</b> <code>{emoji_id}</code>\n\n"
-                    f"💡 You can use this ID in bots that support custom emoji."
+                    f'<tg-emoji emoji-id="6257784371227399216">✅</tg-emoji> '
+                    f'<b>Custom Emoji Detected!</b>\n\n'
+                    f'<tg-emoji emoji-id="6336581950068757210">🆔</tg-emoji> '
+                    f'<b>ID:</b> <code>{emoji_id}</code>\n\n'
+                    f'<tg-emoji emoji-id="5798831858263265607">💡</tg-emoji> '
+                    f'You can use this ID in bots that support custom emoji.'
                 )
                 bot.reply_to(message, response, parse_mode="HTML")
                 return
 
-    # No custom emoji found
-    bot.reply_to(
-        message,
-        "❌ <b>No custom emoji found.</b>\n\n"
-        "Please send a message that includes a Telegram Premium custom emoji.\n"
-        "Use /help for instructions.",
-        parse_mode="HTML"
+    # No custom emoji found - error response with custom cross mark
+    error_response = (
+        f'<tg-emoji emoji-id="6179128006615765757">❌</tg-emoji> '
+        f'<b>No custom emoji found.</b>\n\n'
+        f'Please send a message that includes a Telegram Premium custom emoji.\n'
+        f'Use /help for instructions.'
     )
+    bot.reply_to(message, error_response, parse_mode="HTML")
 
 if __name__ == "__main__":
     print("Bot is running...")
