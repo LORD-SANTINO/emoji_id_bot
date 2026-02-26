@@ -6,7 +6,7 @@ BOT_TOKEN = '8307990040:AAGt9Xfh0gli2Tbb1CA42c_E-mAlLWjkOM4'
 bot = telebot.TeleBot(BOT_TOKEN)
 
 # Enable logging to see errors (optional)
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 
 # A publicly accessible image URL for the start message
 WELCOME_IMAGE_URL = "https://tmpfiles.org/dl/26326290/download7.jpg"  # Random placeholder
