@@ -76,7 +76,7 @@ def send_welcome(message):
         'and I\'ll reply with its unique ID.\n\n'
         '<tg-emoji emoji-id="5325547803936572038">✨</tg-emoji> <b>How to use:</b>\n'
         '• <b>In private chat:</b> Just send any message with a custom emoji\n'
-        '• <b>In groups:</b> Tag me (@YourBotUsername) or use /emoji_id followed by the emoji\n'
+        '• <b>In groups:</b> Tag me (@dax_emoji_id_bot) or use /emoji_id followed by the emoji\n'
         '• I\'ll instantly reply with the emoji\'s ID\n\n'
         '<tg-emoji emoji-id="5319230516929502602">🔍</tg-emoji> <b>Note:</b> '
         'Only custom (Premium) emojis are detected. Standard Unicode emojis are ignored.\n\n'
